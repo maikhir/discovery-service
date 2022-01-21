@@ -4,8 +4,6 @@ eureka:
   client:
     register-with-eureka: false
     fetch-registry: false
-  instance:
-    hostname: ${COMPUTERNAME}
 logging:
   level:
     '[com.netflix.eureka]': 'OFF'

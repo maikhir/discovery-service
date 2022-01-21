@@ -11,12 +11,13 @@
 	</parent>
 	<groupId>com.example</groupId>
 	<artifactId>discovery-service</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<name>discovery-service</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
 		<spring-cloud.version>2020.0.3</spring-cloud.version>
+		<mainClass>com.example.demo.DiscoveryServiceApplication</mainClass>
 		<!-- <spring-cloud.version>2020.0.3</spring-cloud.version> -->
 	</properties>
 	<dependencies>
@@ -55,6 +56,65 @@
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>jib-maven-plugin</artifactId>
+				<version>3.1.4</version>
+				<configuration>
+					<from>
+						<image>arm64v8/openjdk:11-slim</image>
+					</from>
+					<to>
+						<image>registry.hub.docker.com/maik1310/springboot_discoveryservice</image>
+						<tags>${project.version}</tags>
+					</to>
+					<container>
+						<mainClass>${mainClass}</mainClass>
+						<ports>8761</ports>
+						<creationTime>${git.build.time}</creationTime>
+						<labels>
+							<git.remote.origin.url>${git.remote.origin.url}</git.remote.origin.url>
+							<git.commit.id>${git.commit.id}</git.commit.id>
+							<mvn.build.version>${project.version}</mvn.build.version>
+						</labels>
+					</container>
+					<skip>false</skip>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>build</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>pl.project13.maven</groupId>
+				<artifactId>git-commit-id-plugin</artifactId>
+				<version>4.9.10</version>
+				<executions>
+					<execution>
+						<id>get-the-git-infos</id>
+						<goals>
+							<goal>revision</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
+					<prefix>git</prefix>
+					<verbose>false</verbose>
+					<generateGitPropertiesFile>true</generateGitPropertiesFile>
+					<generateGitPropertiesFilename>${project.build.outputDirectory}/git.properties</generateGitPropertiesFilename>
+					<format>json</format>
+					<gitDescribe>
+						<skip>false</skip>
+						<always>false</always>
+						<dirty>-dirty</dirty>
+					</gitDescribe>
 				</configuration>
 			</plugin>
 		</plugins>
