@@ -5,18 +5,18 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.5.2</version>
+		<version>2.6.3</version>
 		<!--<version>2.5.2</version> -->
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
 	<artifactId>discovery-service</artifactId>
-	<version>0.0.2-SNAPSHOT</version>
+	<version>0.0.3</version>
 	<name>discovery-service</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
-		<spring-cloud.version>2020.0.3</spring-cloud.version>
+		<spring-cloud.version>2021.0.0</spring-cloud.version>
 		<mainClass>com.example.demo.DiscoveryServiceApplication</mainClass>
 		<!-- <spring-cloud.version>2020.0.3</spring-cloud.version> -->
 	</properties>
@@ -65,6 +65,16 @@
 				<configuration>
 					<from>
 						<image>arm64v8/openjdk:11-slim</image>
+						<platforms>
+							<platform>
+								<architecture>amd64</architecture>
+								<os>linux</os>
+							</platform>
+							<platform>
+								<architecture>arm64</architecture>
+								<os>linux</os>
+							</platform>
+						</platforms>
 					</from>
 					<to>
 						<image>registry.hub.docker.com/maik1310/springboot_discoveryservice</image>
